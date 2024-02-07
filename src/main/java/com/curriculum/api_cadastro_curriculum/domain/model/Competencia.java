@@ -1,5 +1,6 @@
 package com.curriculum.api_cadastro_curriculum.domain.model;
 
+import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.competencia.CompetenciaDTO;
 import com.curriculum.api_cadastro_curriculum.domain.enums.Proficiencia;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
@@ -17,4 +18,9 @@ public class Competencia {
 
     @Enumerated(EnumType.STRING)
     private Proficiencia proficiencia;
+
+    public Competencia(CompetenciaDTO data) {
+        this.descricao = data.descricao();
+        this.proficiencia = data.proficiencia();
+    }
 }

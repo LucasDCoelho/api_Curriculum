@@ -1,6 +1,6 @@
 package com.curriculum.api_cadastro_curriculum.domain.controller;
 
-import com.curriculum.api_cadastro_curriculum.domain.dto.RegisterCandidato;
+import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.RegisterCandidatoDTO;
 import com.curriculum.api_cadastro_curriculum.domain.service.CandidatoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class CandidatoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity create(@RequestBody @Valid RegisterCandidato candidato){
+    public ResponseEntity create(@RequestBody @Valid RegisterCandidatoDTO candidato){
         candidatoService.create(candidato);
 
         return ResponseEntity.ok(candidato);

@@ -1,6 +1,6 @@
 package com.curriculum.api_cadastro_curriculum.domain.service;
 
-import com.curriculum.api_cadastro_curriculum.domain.dto.RegisterCandidato;
+import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.RegisterCandidatoDTO;
 import com.curriculum.api_cadastro_curriculum.domain.model.Candidato;
 import com.curriculum.api_cadastro_curriculum.domain.repository.CandidatoRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ public class CandidatoService {
 
     private final CandidatoRepository candidatoRepository;
 
-    public Candidato create(RegisterCandidato data) {
+    public Candidato create(RegisterCandidatoDTO data) {
         Candidato candidato = new Candidato(data);
 
         return candidatoRepository.save(candidato);

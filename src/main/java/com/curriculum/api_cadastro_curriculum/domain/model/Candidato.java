@@ -1,6 +1,6 @@
 package com.curriculum.api_cadastro_curriculum.domain.model;
 
-import com.curriculum.api_cadastro_curriculum.domain.dto.RegisterCandidato;
+import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.RegisterCandidatoDTO;
 import com.curriculum.api_cadastro_curriculum.domain.enums.Escolaridade;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,6 +9,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity(name = "Candidato")
@@ -22,23 +25,23 @@ public class Candidato {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private int cpf;
-    @Column(name = "data_de_nascimento")
+    private String cpf;
+    @Column(name = "datadenascimento")
     private LocalDate dataDeNascimento;
     private String email;
-    private int telefone;
+    private String telefone;
 
     @Enumerated(EnumType.STRING)
     private Escolaridade escolaridade;
 
     private String funcao;
-    @Embedded
-    private Competencia competencia;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "candidato", orphanRemoval = true)
+    private Set<Competencia> competencias = new HashSet<>();
 
     private boolean ativo;
     private boolean admin;
 
-    public Candidato(RegisterCandidato data) {
+    public Candidato(RegisterCandidatoDTO data) {
         this.nome = data.nome();
         this.cpf = data.cpf();
         this.dataDeNascimento = data.dataDeNascimento();
@@ -46,7 +49,10 @@ public class Candidato {
         this.telefone = data.telefone();
         this.escolaridade = data.escolaridade();
         this.funcao = data.funcao();
-        this.competencia = data.competencia();
+        if (data.competencias() != null) {
+            data.competencias().forEach(competenciaDTO ->
+                    this.competencias.add(new Competencia(competenciaDTO, this)));
+        }
         this.ativo = true;
         this.admin = false;
     }

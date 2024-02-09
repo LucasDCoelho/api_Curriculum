@@ -3,10 +3,7 @@ package com.curriculum.api_cadastro_curriculum.domain.model;
 import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.RegisterCandidatoDTO;
 import com.curriculum.api_cadastro_curriculum.domain.enums.Escolaridade;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -17,6 +14,7 @@ import java.util.Set;
 @Entity(name = "Candidato")
 @Table(name = "candidato")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -35,7 +33,9 @@ public class Candidato {
     private Escolaridade escolaridade;
 
     private String funcao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "candidato", orphanRemoval = true)
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "candidato_id")
     private Set<Competencia> competencias = new HashSet<>();
 
     private boolean ativo;
@@ -50,8 +50,7 @@ public class Candidato {
         this.escolaridade = data.escolaridade();
         this.funcao = data.funcao();
         if (data.competencias() != null) {
-            data.competencias().forEach(competenciaDTO ->
-                    this.competencias.add(new Competencia(competenciaDTO, this)));
+            data.competencias().forEach(competenciaDTO -> this.competencias.add(new Competencia(competenciaDTO)));
         }
         this.ativo = true;
         this.admin = false;

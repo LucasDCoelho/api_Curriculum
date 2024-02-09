@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
+@Table(name = "competencia")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,13 +20,9 @@ public class Competencia {
     @Enumerated(EnumType.STRING)
     private Proficiencia proficiencia;
 
-    @ManyToOne
-    @JoinColumn(name = "candidato_id")
-    private Candidato candidato;
 
-    public Competencia(CompetenciaDTO data, Candidato candidato) {
+    public Competencia(CompetenciaDTO data) {
         this.descricao = data.descricao();
         this.proficiencia = data.proficiencia();
-        this.candidato = candidato;
     }
 }

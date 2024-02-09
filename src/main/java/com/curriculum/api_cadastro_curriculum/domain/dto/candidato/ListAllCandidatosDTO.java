@@ -1,4 +1,4 @@
-package com.curriculum.api_cadastro_curriculum.domain.dto;
+package com.curriculum.api_cadastro_curriculum.domain.dto.candidato;
 
 import com.curriculum.api_cadastro_curriculum.domain.model.Candidato;
 

@@ -1,6 +1,5 @@
 package com.curriculum.api_cadastro_curriculum.domain.repository;
 
-import com.curriculum.api_cadastro_curriculum.domain.dto.ListAllCandidatosDTO;
 import com.curriculum.api_cadastro_curriculum.domain.model.Candidato;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

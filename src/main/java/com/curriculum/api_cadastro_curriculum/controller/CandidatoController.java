@@ -1,11 +1,11 @@
-package com.curriculum.api_cadastro_curriculum.domain.controller;
+package com.curriculum.api_cadastro_curriculum.controller;
 
 import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.DetailsCandidatoDTO;
 import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.ListAllCandidatosDTO;
 import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.UpdateCandidatoDTO;
 import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.RegisterCandidatoDTO;
 import com.curriculum.api_cadastro_curriculum.domain.model.Candidato;
-import com.curriculum.api_cadastro_curriculum.domain.service.CandidatoService;
+import com.curriculum.api_cadastro_curriculum.service.CandidatoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -44,7 +44,6 @@ public class CandidatoController {
     @Transactional
     public ResponseEntity<DetailsCandidatoDTO> updateCandidato(@RequestBody @Valid UpdateCandidatoDTO data){
         Candidato candidato = candidatoService.update(data);
-
         return ResponseEntity.ok(new DetailsCandidatoDTO(candidato));
     }
 

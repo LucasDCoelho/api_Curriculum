@@ -1,4 +1,4 @@
-package com.curriculum.api_cadastro_curriculum.domain.service;
+package com.curriculum.api_cadastro_curriculum.service;
 
 import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.DetailsCandidatoDTO;
 import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.ListAllCandidatosDTO;
@@ -7,11 +7,10 @@ import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.UpdateCandida
 import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.competencia.CompetenciaDTO;
 import com.curriculum.api_cadastro_curriculum.domain.model.Candidato;
 import com.curriculum.api_cadastro_curriculum.domain.model.Competencia;
-import com.curriculum.api_cadastro_curriculum.domain.repository.CandidatoRepository;
+import com.curriculum.api_cadastro_curriculum.repository.CandidatoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;

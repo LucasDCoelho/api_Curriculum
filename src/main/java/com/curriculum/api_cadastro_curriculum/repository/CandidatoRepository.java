@@ -1,4 +1,4 @@
-package com.curriculum.api_cadastro_curriculum.domain.repository;
+package com.curriculum.api_cadastro_curriculum.repository;
 
 import com.curriculum.api_cadastro_curriculum.domain.model.Candidato;
 import org.springframework.data.domain.Page;

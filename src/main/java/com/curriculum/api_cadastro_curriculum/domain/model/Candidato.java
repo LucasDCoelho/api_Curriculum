@@ -36,10 +36,10 @@ public class Candidato {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "candidato_id")
-    private Set<Competencia> competencias = new HashSet<>();
+    private Set<Competencia> competencias;
 
     private boolean ativo;
-    private boolean admin;
+    private String situacao;
 
     public Candidato(RegisterCandidatoDTO data) {
         this.nome = data.nome();
@@ -53,6 +53,6 @@ public class Candidato {
             data.competencias().forEach(competenciaDTO -> this.competencias.add(new Competencia(competenciaDTO)));
         }
         this.ativo = true;
-        this.admin = false;
+        this.situacao = "AGUARDANDO";
     }
 }

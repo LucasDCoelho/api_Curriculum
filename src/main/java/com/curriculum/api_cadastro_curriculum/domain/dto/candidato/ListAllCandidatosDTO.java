@@ -7,7 +7,8 @@ public record ListAllCandidatosDTO(
     String nome,
     String cpf,
     String email,
-    String telefone
+    String telefone,
+    String situacao
 ) {
     public ListAllCandidatosDTO(Candidato candidato){
         this(
@@ -15,7 +16,8 @@ public record ListAllCandidatosDTO(
                 candidato.getNome(),
                 candidato.getCpf(),
                 candidato.getEmail(),
-                candidato.getTelefone()
+                candidato.getTelefone(),
+                candidato.getSituacao()
         );
 
     }

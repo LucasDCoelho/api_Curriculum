@@ -39,6 +39,7 @@ public class Candidato {
     private Set<Competencia> competencias;
 
     private boolean ativo;
+    private String situacao;
 
     public Candidato(RegisterCandidatoDTO data) {
         this.nome = data.nome();
@@ -52,5 +53,6 @@ public class Candidato {
             data.competencias().forEach(competenciaDTO -> this.competencias.add(new Competencia(competenciaDTO)));
         }
         this.ativo = true;
+        this.situacao = "AGUARDANDO";
     }
 }

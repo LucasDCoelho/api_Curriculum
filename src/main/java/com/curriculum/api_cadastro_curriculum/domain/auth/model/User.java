@@ -1,14 +1,17 @@
 package com.curriculum.api_cadastro_curriculum.domain.auth.model;
 
+import com.curriculum.api_cadastro_curriculum.domain.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
 @Entity(name = "Users")
 @Table(name = "users")
@@ -22,11 +25,27 @@ public class User implements UserDetails {
     private Long id;
     private String login;
     private String password;
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
+
+    public User(String login, String password, UserRole role) {
+        this.login = login;
+        this.password = password;
+        this.role = role;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return switch (this.role) {
+            case DEV -> List.of(
+                    new SimpleGrantedAuthority("ROLE_DEV"),
+                    new SimpleGrantedAuthority("ROLE_ADMIN"),
+                    new SimpleGrantedAuthority("ROLE_USER"));
+            case ADMIN -> List.of(
+                    new SimpleGrantedAuthority("ROLE_ADMIN"),
+                    new SimpleGrantedAuthority("ROLE_USER"));
+            default -> List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        };
     }
 
     @Override

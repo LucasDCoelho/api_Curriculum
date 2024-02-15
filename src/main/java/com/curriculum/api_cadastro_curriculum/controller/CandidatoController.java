@@ -22,7 +22,7 @@ public class CandidatoController {
 
     private final CandidatoService candidatoService;
 
-    @PostMapping
+    @PostMapping("/create")
     @Transactional
     public ResponseEntity<DetailsCandidatoDTO> createCandidato(@RequestBody @Valid RegisterCandidatoDTO data, UriComponentsBuilder uriBuilder){
         Candidato candidato = candidatoService.create(data);
@@ -33,21 +33,21 @@ public class CandidatoController {
     }
 
 
-    @GetMapping
+    @GetMapping("/list-all")
     public ResponseEntity<Page<ListAllCandidatosDTO>> listarAllCandidatos(Pageable pageable){
         Page<ListAllCandidatosDTO> listAllCandidatos = candidatoService.listAll(pageable);
 
         return ResponseEntity.ok(listAllCandidatos);
     }
 
-    @PutMapping
+    @PutMapping("/update")
     @Transactional
     public ResponseEntity<DetailsCandidatoDTO> updateCandidato(@RequestBody @Valid UpdateCandidatoDTO data){
         Candidato candidato = candidatoService.update(data);
         return ResponseEntity.ok(new DetailsCandidatoDTO(candidato));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete/{id}")
     @Transactional
     public ResponseEntity deleteCandidato(@PathVariable Long id){
         candidatoService.delete(id);

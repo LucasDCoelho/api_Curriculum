@@ -5,6 +5,7 @@ import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.ListAllCandid
 import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.RegisterCandidatoDTO;
 import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.UpdateCandidatoDTO;
 import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.competencia.CompetenciaDTO;
+import com.curriculum.api_cadastro_curriculum.domain.enums.Situacao;
 import com.curriculum.api_cadastro_curriculum.domain.model.Candidato;
 import com.curriculum.api_cadastro_curriculum.domain.model.Competencia;
 import com.curriculum.api_cadastro_curriculum.repository.CandidatoRepository;
@@ -72,10 +73,26 @@ public class CandidatoService {
     public void delete(Long id) {
         Candidato candidato = candidatoRepository.getReferenceById(id);
         candidato.setAtivo(false);
+        candidatoRepository.save(candidato);
     }
 
     public DetailsCandidatoDTO details(Long id) {
         Candidato candidato = candidatoRepository.getReferenceById(id);
         return new DetailsCandidatoDTO(candidato);
+    }
+
+
+
+    // Area Administrativa:
+    public void approveCandidato(Long id) {
+        Candidato candidato = candidatoRepository.getReferenceById(id);
+        candidato.setSituacao(Situacao.APROVADO);
+        candidatoRepository.save(candidato);
+    }
+
+    public void rejectCandidato(Long id) {
+        Candidato candidato = candidatoRepository.getReferenceById(id);
+        candidato.setSituacao(Situacao.REPROVADO);
+        candidatoRepository.save(candidato);
     }
 }

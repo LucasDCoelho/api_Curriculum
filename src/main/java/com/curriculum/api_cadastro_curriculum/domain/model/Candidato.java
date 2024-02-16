@@ -2,6 +2,7 @@ package com.curriculum.api_cadastro_curriculum.domain.model;
 
 import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.RegisterCandidatoDTO;
 import com.curriculum.api_cadastro_curriculum.domain.enums.Escolaridade;
+import com.curriculum.api_cadastro_curriculum.domain.enums.Situacao;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -39,7 +40,7 @@ public class Candidato {
     private Set<Competencia> competencias;
 
     private boolean ativo;
-    private String situacao;
+    private Situacao situacao;
 
     public Candidato(RegisterCandidatoDTO data) {
         this.nome = data.nome();
@@ -53,6 +54,6 @@ public class Candidato {
             data.competencias().forEach(competenciaDTO -> this.competencias.add(new Competencia(competenciaDTO)));
         }
         this.ativo = true;
-        this.situacao = "AGUARDANDO";
+        this.situacao = Situacao.AGUARDANDO;
     }
 }

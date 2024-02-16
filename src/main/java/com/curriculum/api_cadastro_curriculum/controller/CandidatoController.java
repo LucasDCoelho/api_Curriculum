@@ -59,4 +59,16 @@ public class CandidatoController {
         DetailsCandidatoDTO detailCandidato = candidatoService.details(id);
         return ResponseEntity.ok(detailCandidato);
     }
+
+    @PostMapping("/{id}/approve")
+    public ResponseEntity<String> approveCandidato(@PathVariable Long id){
+        candidatoService.approveCandidato(id);
+        return ResponseEntity.ok("Candidato aprovado com sucesso");
+    }
+
+    @PostMapping("/{id}/reject")
+    public ResponseEntity<String> rejectCandidato(@PathVariable Long id){
+        candidatoService.rejectCandidato(id);
+        return ResponseEntity.ok("Candidato reprovado com sucesso");
+    }
 }

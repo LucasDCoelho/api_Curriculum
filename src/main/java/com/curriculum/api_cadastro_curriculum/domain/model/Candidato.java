@@ -40,6 +40,7 @@ public class Candidato {
     private Set<Competencia> competencias;
 
     private boolean ativo;
+    @Enumerated(EnumType.STRING)
     private Situacao situacao;
 
     public Candidato(RegisterCandidatoDTO data) {

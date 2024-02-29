@@ -16,7 +16,7 @@ FROM openjdk:21-jdk-slim
 EXPOSE 8080
 
 # Copiar o JAR para a imagem final
-COPY --from=build /target/demo-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /target/api_cadastro_curriculum-0.0.1-SNAPSHOT.jar app.jar
 
 # Executar a API Spring Boot
 ENTRYPOINT ["java", "-jar", "app.jar"]

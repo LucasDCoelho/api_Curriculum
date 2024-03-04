@@ -37,7 +37,7 @@ public class Candidato {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "candidato_id")
-    private Set<Competencia> competencias;
+    private Set<Competencia> competencias = new HashSet<>();
 
     private boolean ativo;
     @Enumerated(EnumType.STRING)
@@ -51,6 +51,7 @@ public class Candidato {
         this.telefone = data.telefone();
         this.escolaridade = data.escolaridade();
         this.funcao = data.funcao();
+        this.competencias = new HashSet<>();
         if (data.competencias() != null) {
             data.competencias().forEach(competenciaDTO -> this.competencias.add(new Competencia(competenciaDTO)));
         }

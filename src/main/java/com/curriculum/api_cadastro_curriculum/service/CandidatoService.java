@@ -95,4 +95,10 @@ public class CandidatoService {
         candidato.setSituacao(Situacao.REPROVADO);
         candidatoRepository.save(candidato);
     }
+
+    public void resetCandidato(Long id) {
+        Candidato candidato = candidatoRepository.getReferenceById(id);
+        candidato.setSituacao(Situacao.AGUARDANDO);
+        candidatoRepository.save(candidato);
+    }
 }

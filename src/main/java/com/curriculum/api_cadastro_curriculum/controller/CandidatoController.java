@@ -61,14 +61,23 @@ public class CandidatoController {
     }
 
     @PostMapping("/{id}/approve")
+    @Transactional
     public ResponseEntity<String> approveCandidato(@PathVariable Long id){
         candidatoService.approveCandidato(id);
         return ResponseEntity.ok("Candidato aprovado com sucesso");
     }
 
     @PostMapping("/{id}/reject")
+    @Transactional
     public ResponseEntity<String> rejectCandidato(@PathVariable Long id){
         candidatoService.rejectCandidato(id);
         return ResponseEntity.ok("Candidato reprovado com sucesso");
+    }
+
+    @PostMapping("/{id}/reset")
+    @Transactional
+    public ResponseEntity<String> resetCandidato(@PathVariable Long id){
+        candidatoService.resetCandidato(id);
+        return ResponseEntity.ok("Candidato resetado com sucesso");
     }
 }

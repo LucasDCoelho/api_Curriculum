@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
 
     private final AuthorizationService authorizationService;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
     public ResponseEntity<ResponseTokenDTO> login(@RequestBody @Valid AuthenticationDTO data){

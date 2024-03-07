@@ -1,6 +1,7 @@
 package com.curriculum.api_cadastro_curriculum.domain.auth.model;
 
 import com.curriculum.api_cadastro_curriculum.domain.enums.UserRole;
+import com.curriculum.api_cadastro_curriculum.domain.model.Candidato;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -11,7 +12,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity(name = "Users")
 @Table(name = "users")

@@ -1,5 +1,6 @@
 package com.curriculum.api_cadastro_curriculum.domain.model;
 
+import com.curriculum.api_cadastro_curriculum.domain.auth.model.User;
 import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.RegisterCandidatoDTO;
 import com.curriculum.api_cadastro_curriculum.domain.enums.Escolaridade;
 import com.curriculum.api_cadastro_curriculum.domain.enums.Situacao;

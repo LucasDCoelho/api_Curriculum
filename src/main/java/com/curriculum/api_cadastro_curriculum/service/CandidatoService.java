@@ -1,5 +1,6 @@
 package com.curriculum.api_cadastro_curriculum.service;
 
+import com.curriculum.api_cadastro_curriculum.domain.auth.model.User;
 import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.DetailsCandidatoDTO;
 import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.ListAllCandidatosDTO;
 import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.RegisterCandidatoDTO;
@@ -9,12 +10,14 @@ import com.curriculum.api_cadastro_curriculum.domain.enums.Situacao;
 import com.curriculum.api_cadastro_curriculum.domain.model.Candidato;
 import com.curriculum.api_cadastro_curriculum.domain.model.Competencia;
 import com.curriculum.api_cadastro_curriculum.repository.CandidatoRepository;
+import com.curriculum.api_cadastro_curriculum.repository.auth.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -22,9 +25,13 @@ import java.util.Set;
 public class CandidatoService {
 
     private final CandidatoRepository candidatoRepository;
+    private final UserRepository userRepository;
 
-    public Candidato create(RegisterCandidatoDTO data) {
+    public Candidato create(Long userId ,RegisterCandidatoDTO data) {
+        User user = userRepository.getReferenceById(userId);
+
         Candidato candidato = new Candidato(data);
+        candidato.setUser(user);
 
         return candidatoRepository.save(candidato);
     }
@@ -100,5 +107,10 @@ public class CandidatoService {
         Candidato candidato = candidatoRepository.getReferenceById(id);
         candidato.setSituacao(Situacao.AGUARDANDO);
         candidatoRepository.save(candidato);
+    }
+
+    public List<Candidato> getFindByUserId(Long userId) {
+        User user = userRepository.getReferenceById(userId);
+        return candidatoRepository.findByUser(user);
     }
 }

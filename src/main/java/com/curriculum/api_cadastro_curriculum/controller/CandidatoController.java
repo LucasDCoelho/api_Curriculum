@@ -1,19 +1,26 @@
 package com.curriculum.api_cadastro_curriculum.controller;
 
+import com.curriculum.api_cadastro_curriculum.domain.auth.model.User;
 import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.DetailsCandidatoDTO;
 import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.ListAllCandidatosDTO;
 import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.UpdateCandidatoDTO;
 import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.RegisterCandidatoDTO;
 import com.curriculum.api_cadastro_curriculum.domain.model.Candidato;
+import com.curriculum.api_cadastro_curriculum.infra.security.TokenService;
 import com.curriculum.api_cadastro_curriculum.service.CandidatoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/candidato")
@@ -21,11 +28,17 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class CandidatoController {
 
     private final CandidatoService candidatoService;
+    private final TokenService tokenService;
 
     @PostMapping("/create")
     @Transactional
-    public ResponseEntity<DetailsCandidatoDTO> createCandidato(@RequestBody @Valid RegisterCandidatoDTO data, UriComponentsBuilder uriBuilder){
-        Candidato candidato = candidatoService.create(data);
+    public ResponseEntity<DetailsCandidatoDTO> createCandidato(
+            @RequestBody @Valid RegisterCandidatoDTO data,
+            UriComponentsBuilder uriBuilder,
+            @RequestHeader(name = "Authorization") String token
+            ){
+        Long userId = tokenService.getUserIdFromToken(token.substring(7));
+        Candidato candidato = candidatoService.create(userId, data);
 
         var uri = uriBuilder.path("/candidato/{id}").buildAndExpand(candidato.getId()).toUri();
 
@@ -38,6 +51,15 @@ public class CandidatoController {
         Page<ListAllCandidatosDTO> listAllCandidatos = candidatoService.listAll(pageable);
 
         return ResponseEntity.ok(listAllCandidatos);
+    }
+
+    @GetMapping("/list-all-by-id")
+    public ResponseEntity<List<Candidato>> getCandidatosDoUsuario(
+            @RequestHeader(name = "Authorization") String token
+    ) {
+        Long userId = tokenService.getUserIdFromToken(token.substring(7));
+        List<Candidato> candidatos = candidatoService.getFindByUserId(userId);
+        return ResponseEntity.ok(candidatos);
     }
 
     @PutMapping("/update")

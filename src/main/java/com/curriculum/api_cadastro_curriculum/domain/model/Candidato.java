@@ -4,6 +4,7 @@ import com.curriculum.api_cadastro_curriculum.domain.auth.model.User;
 import com.curriculum.api_cadastro_curriculum.domain.dto.candidato.RegisterCandidatoDTO;
 import com.curriculum.api_cadastro_curriculum.domain.enums.Escolaridade;
 import com.curriculum.api_cadastro_curriculum.domain.enums.Situacao;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -43,6 +44,11 @@ public class Candidato {
     private boolean ativo;
     @Enumerated(EnumType.STRING)
     private Situacao situacao;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private User user;
 
     public Candidato(RegisterCandidatoDTO data) {
         this.nome = data.nome();

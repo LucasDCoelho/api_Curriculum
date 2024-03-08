@@ -2,6 +2,7 @@ package com.curriculum.api_cadastro_curriculum.domain.auth.model;
 
 import com.curriculum.api_cadastro_curriculum.domain.enums.UserRole;
 import com.curriculum.api_cadastro_curriculum.domain.model.Candidato;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -12,7 +13,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -30,6 +30,10 @@ public class User implements UserDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     private UserRole role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Set<Candidato> candidatos;
 
     public User(String login, String password, UserRole role) {
         this.login = login;
